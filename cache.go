@@ -27,7 +27,7 @@ func NewCache() Cache {
 	cache.timer = time.AfterFunc(time.Second, func() {
 		expiryTime := time.Now()
 		for k, v := range cache.dict {
-			if v.expired && v.deadline.After(expiryTime) {
+			if v.expired && v.deadline.Before(expiryTime) {
 				delete(cache.dict, k)
 			}
 		}
